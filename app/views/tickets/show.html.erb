@@ -1,5 +1,16 @@
 <h1>Tickets</h1>
 
+<div>Title: <%= @ticket.title %></div>
+<div>Description: <%= @ticket.description %></div>
+<div>Status: <%= @ticket.status %></div>
+
+<h4>Comments</h4>
+<% @comments.each do |comment| %>
+    <div>
+        <%= comment.created_at %>: <%= comment.content %>
+    </div>
+<% end %>
+
 <%= link_to "Back", tickets_path %>
 <%= link_to "Edit", edit_ticket_path(@ticket) %>
 <%= button_to "Delete", @ticket, method: :delete, data: { turbo_confirm: "Are you sure?" } %>

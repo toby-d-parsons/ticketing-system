@@ -6,6 +6,7 @@ class TicketsController < ApplicationController
   end
 
   def show
+    @comments = Comment.where(ticket_id: params[:id])
   end
 
   def new
