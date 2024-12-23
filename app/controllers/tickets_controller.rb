@@ -1,4 +1,6 @@
 class TicketsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
+
   before_action :set_ticket, only: %i[ show edit update destroy ]
   before_action :load_available_statuses
   before_action :set_status, only: %i[ show edit update destroy ]
