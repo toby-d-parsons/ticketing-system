@@ -16,5 +16,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :statuses
+
   root "tickets#index"
 end

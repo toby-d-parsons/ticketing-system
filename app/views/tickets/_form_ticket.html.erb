@@ -9,9 +9,8 @@
     </div>
     <div>
         <%= form.label :status %>
-        <%= form.text_field :status %>
+        <%= form.collection_select(:status_id, @statuses, :id, :name) %>
     </div>
-
     <div>
         <%= form.submit %>
     </div>

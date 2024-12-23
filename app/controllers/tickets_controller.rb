@@ -1,5 +1,7 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[ show edit update destroy ]
+  before_action :load_available_statuses
+  before_action :set_status, only: %i[ show edit update destroy ]
 
   def index
     @tickets = Ticket.all
@@ -44,7 +46,15 @@ class TicketsController < ApplicationController
       @ticket = Ticket.find(params[:id])
     end
 
+    def load_available_statuses
+      @statuses = Status.all
+    end
+
+    def set_status
+      @status = @ticket.status.name
+    end
+
     def ticket_params
-      params.expect(ticket: [ :title, :description, :status ])
+      params.expect(ticket: [ :title, :description, :status_id ])
     end
 end
