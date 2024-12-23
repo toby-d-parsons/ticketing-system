@@ -1,0 +1,8 @@
+<%= form_with model: [@ticket, @comment], local: true do |form| %>
+    <div>
+        <%= form.text_area :content %>
+    </div>
+    <div>
+        <%= form.submit "Add Comment" %>
+    </div>
+<% end %>

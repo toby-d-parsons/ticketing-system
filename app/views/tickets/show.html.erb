@@ -11,6 +11,8 @@
     </div>
 <% end %>
 
+<%= render "form_comment", ticket: @ticket %>
+
 <%= link_to "Back", tickets_path %>
 <%= link_to "Edit", edit_ticket_path(@ticket) %>
 <%= button_to "Delete", @ticket, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
