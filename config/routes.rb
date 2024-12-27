@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :statuses
 
   root "tickets#index"
+  get "admin", to: "admin#index"
 end

@@ -27,6 +27,7 @@
       <%= link_to "Home", root_path %>
       <%= link_to "Log in", new_session_path unless authenticated? %>
       <%= button_to "Log out", session_path, method: :delete if authenticated? %>
+      <%= link_to "Admin", admin_path if authenticated? %>
     </nav>
 
     <main>
