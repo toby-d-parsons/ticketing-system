@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_27_150431) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_27_153920) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "ticket_id", null: false
@@ -54,10 +54,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_150431) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role_id", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "comments", "tickets"
   add_foreign_key "sessions", "users"
   add_foreign_key "tickets", "statuses"
+  add_foreign_key "users", "roles"
 end
