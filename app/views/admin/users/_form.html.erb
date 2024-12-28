@@ -1,0 +1,23 @@
+<%= form_with model: user,
+              url: user.persisted? ? admin_user_path(user) : admin_users_path,
+              method: user.persisted? ? :patch : :post do |form| %>
+    <div>
+        <%= form.label :email_address %>
+        <%= form.text_field :email_address %>
+    </div>
+    <div>
+        <%= form.label :role_id %>
+        <%= form.collection_select(:role_id, @roles, :id, :name) %>
+    </div>
+    <div>
+        <%= form.label :password %>
+        <%= form.text_field :password %>
+    </div>
+    <div>
+        <%= form.label :password_confirmation %>
+        <%= form.text_field :password_confirmation %>
+    </div>
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>
