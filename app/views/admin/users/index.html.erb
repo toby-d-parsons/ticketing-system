@@ -10,6 +10,7 @@
         <th>Email Address</th>
         <th>Role</th>
         <th></th>
+        <th></th>
     </tr>
     <% @users.each do |user| %>
         <tr>
@@ -17,6 +18,7 @@
             <td><%= user.email_address %></td>
             <td><%= user.role.name %></td>
             <td><%= link_to "Edit", edit_admin_user_path(user.role_id) %>
+            <td><%= button_to "Delete", admin_user_path(user), method: :delete, data: { turbo_confirm: "Are you sure?" } %></td>
         </tr>
     <% end %>
 </table>

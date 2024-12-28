@@ -22,6 +22,12 @@ class Admin::UsersController < ApplicationController
   def edit
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_users_path
+  end
+
   private
   def user_params
     params.expect(user: [ :email_address, :role_id, :password, :password_confirmation ])
