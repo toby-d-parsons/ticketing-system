@@ -3,7 +3,7 @@ class Ticket < ApplicationRecord
   belongs_to :status
   belongs_to :user
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
+  validates :description, presence: true, length: { maximum: 9810 }
   validates :status, presence: true
 end

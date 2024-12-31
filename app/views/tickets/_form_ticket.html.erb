@@ -1,11 +1,11 @@
 <%= form_with model: ticket do |form| %>
     <div>
         <%= form.label :title %>
-        <%= form.text_field :title %>
+        <%= form.text_field :title, maxlength: 255, size: 60 %>
     </div>
     <div>
         <%= form.label :description %>
-        <%= form.text_field :description %>
+        <%= form.text_field :description, maxlength: 9810, size: 90 %>
     </div>
     <div>
         <%= form.label :status %>

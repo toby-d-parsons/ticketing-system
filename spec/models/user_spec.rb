@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  let!(:role) { Role.create(name: 'Admin') }
+  let(:role) { Role.create(name: 'Admin') }
 
   subject do
     described_class.create(
