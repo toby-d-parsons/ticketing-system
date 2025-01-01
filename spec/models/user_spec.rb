@@ -1,15 +1,7 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  let(:role) { Role.create(name: 'Admin') }
-
-  subject do
-    described_class.create(
-      email_address: "testemail@email.com",
-      password: "passworD12£$",
-      role_id: role.id
-      )
-  end
+  subject { create(:user) }
 
   context "validations on creation" do
     context "valid attributes" do
@@ -41,11 +33,7 @@ describe User, type: :model do
         end
 
         it "is invalid when a duplicate email_address is entered" do
-          described_class.create(
-            email_address: "duplicate@test.com",
-            password: "passworD12£$",
-            role_id: role.id
-          )
+          create(:user, email_address: "duplicate@test.com")
           subject.email_address = "duplicate@test.com"
           expect(subject).to be_invalid
         end

@@ -1,18 +1,7 @@
 require 'rails_helper'
 
 describe Ticket, type: :model do
-  let(:role) { Role.create(name: "Admin") }
-  let(:status) { Status.create(name: "Open") }
-  let(:user) { User.create(email_address: "testemail@email.com", password: "passworD12£$", role_id: role.id) }
-
-  subject do
-    described_class.create(
-      title: "random title",
-      description: "random text",
-      status_id: status.id,
-      user_id: user.id
-    )
-  end
+  subject { create(:ticket) }
 
   context "validations on creation" do
     context "valid attributes" do
