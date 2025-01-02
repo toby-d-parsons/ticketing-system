@@ -1,6 +1,6 @@
 <%= form_with model: [@ticket, @comment], local: true do |form| %>
     <div>
-        <%= form.text_area :content %>
+        <%= form.text_area :content, maxlength: 9810, size: 90 %>
     </div>
     <div>
         <%= form.submit "Add Comment" %>

@@ -60,4 +60,12 @@ describe Ticket, type: :model do
       end
     end
   end
+
+  context "validations on destroy" do
+    it "deletes associated comments when the ticket is destroyed" do
+      subject
+      create(:comment, ticket_id: subject.id)
+      expect { subject.destroy }.to change(Comment, :count).by(-1)
+    end
+  end
 end
