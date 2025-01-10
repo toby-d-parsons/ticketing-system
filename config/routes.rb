@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   end
 
   get "signup", to: "signup#new"
+  post "signup", to: "signup#create"
 end
