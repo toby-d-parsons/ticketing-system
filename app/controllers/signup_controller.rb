@@ -7,7 +7,7 @@ class SignupController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.role_id = 1 # Temp, will default to User role in future
+    @user.role_id = 3 # Temp, will default to User role in future
     puts @user
     if @user.save!
       redirect_to root_path
