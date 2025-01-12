@@ -3,6 +3,11 @@ require 'rails_helper'
 describe Comment, type: :model do
   subject { create(:comment) }
 
+  context "Associations" do
+    it { should belong_to(:ticket) }
+    # it { should belong_to(:user) }
+  end
+
   context "validations on creation" do
     context "valid attributes" do
       it "is valid with content and a ticket_id" do

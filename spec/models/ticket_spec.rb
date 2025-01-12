@@ -3,6 +3,12 @@ require 'rails_helper'
 describe Ticket, type: :model do
   subject { create(:ticket) }
 
+  context "Associations" do
+    it { should belong_to(:user) }
+    it { should belong_to(:status) }
+    it { should have_many(:comments) }
+  end
+
   context "validations on creation" do
     context "valid attributes" do
       it "is valid with a title, description, valid status_id, and a valid user_id" do

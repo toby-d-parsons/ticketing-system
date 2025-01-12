@@ -3,6 +3,12 @@ require 'rails_helper'
 describe User, type: :model do
   subject { create(:user) }
 
+  context "Associations" do
+    it { should belong_to(:role) }
+    it { should have_many(:tickets) }
+    # it { should have_many(:comments) }
+  end
+
   context "validations on creation" do
     context "valid attributes" do
       it "is valid with an email_address, password, and valid role_id" do
