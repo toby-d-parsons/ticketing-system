@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :tickets
   belongs_to :role
+  before_create :confirmation_token
 
   validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true, uniqueness: true
 
@@ -19,4 +20,17 @@ class User < ApplicationRecord
   validates :password, format: { with: PASSWORD_REQUIREMENTS,
                                  message: "must be 8 or more characters, including lower and upper case letters and at least one number and symbol" },
                                  if: :password_digest_changed?
+
+  def email_activate
+    self.email_confirmed = true
+    self.confirm_token = nil
+    save!
+  end
+
+  private
+  def confirmation_token
+    if self.confirm_token.blank?
+      self.confirm_token = SecureRandom.urlsafe_base64.to_s
+    end
+  end
 end
