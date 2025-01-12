@@ -29,4 +29,5 @@ Rails.application.routes.draw do
 
   get "signup", to: "signup#new"
   post "signup", to: "signup#create"
+  get "signup/:id/confirm_email", to: "signup#confirm_email", as: :confirm_email_signup
 end
