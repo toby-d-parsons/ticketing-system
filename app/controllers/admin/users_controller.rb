@@ -16,6 +16,7 @@ class Admin::UsersController < AdminController
     @roles = Role.all
     @role = @user.role.name
     if @user.save
+      UserMailer.registration_confirmation(@user).deliver
       redirect_to admin_users_path
     else
       render :new, status: :unprocessable_entity

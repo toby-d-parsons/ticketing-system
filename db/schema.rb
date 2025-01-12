@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_29_160322) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_12_105009) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "ticket_id", null: false
@@ -57,6 +57,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_29_160322) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role_id", null: false
+    t.boolean "email_confirmed", default: false
+    t.string "confirm_token"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
