@@ -1,12 +1,11 @@
 class TicketsController < ApplicationController
-  allow_unauthenticated_access only: %i[ index show ]
-
   before_action :set_ticket, only: %i[ show edit update destroy ]
   before_action :load_available_statuses
   before_action :set_status, only: %i[ show edit update destroy ]
+  before_action :authorize_ticket_access, only: %i[ show edit update destroy ]
 
   def index
-    @tickets = Ticket.all
+    @tickets = can_view_all_tickets? ? Ticket.all : Ticket.where(user_id: Current.user.id)
   end
 
   def show
@@ -59,5 +58,15 @@ class TicketsController < ApplicationController
 
     def ticket_params
       params.expect(ticket: [ :title, :description, :status_id ])
+    end
+
+    def authorize_ticket_access
+      unless UserPolicy.new.can_access_ticket?(@ticket)
+        render file: "public/404.html", status: :forbidden
+      end
+    end
+
+    def can_view_all_tickets?
+      UserPolicy.new.global_ticket_scope?
     end
 end

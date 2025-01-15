@@ -14,4 +14,16 @@ class UserPolicy
   def can_access_admin_portal?
     self.is_admin?
   end
+
+  def is_ticket_owner?(ticket)
+    @user.id === ticket.user_id
+  end
+
+  def can_access_ticket?(ticket)
+    is_admin? || is_ticket_owner?(ticket)
+  end
+
+  def global_ticket_scope?
+    is_admin? || is_agent?
+  end
 end
