@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
   end
 
   def show
-    @comments = @ticket.comments.all
+    @comments = @ticket.comments.all.includes(:user)
     @comment = @ticket.comments.build
   end
 

@@ -5,7 +5,7 @@ describe Comment, type: :model do
 
   context "Associations" do
     it { should belong_to(:ticket) }
-    # it { should belong_to(:user) }
+    it { should belong_to(:user) }
   end
 
   context "validations on creation" do
@@ -36,6 +36,18 @@ describe Comment, type: :model do
 
         it "is invalid without an existing ticket_id" do
           subject.ticket_id = 2000 # Assuming that no role with id 2000 exists
+          expect(subject).to be_invalid
+        end
+      end
+
+      context "user_id" do
+        it "is invalid without a user_id" do
+          subject.user_id = nil
+          expect(subject).to be_invalid
+        end
+
+        it "is invalid without an existing user_id" do
+          subject.user_id = 2000 # Assuming that no role with id 2000 exists
           expect(subject).to be_invalid
         end
       end

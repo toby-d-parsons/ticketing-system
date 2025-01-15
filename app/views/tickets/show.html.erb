@@ -7,7 +7,7 @@
 <h4>Comments</h4>
 <% @comments.each do |comment| %>
     <div>
-        <%= comment.created_at %>: <%= comment.content %>
+        <%= comment.user&.email_address || "Unknown" %>: <%= comment.created_at %>: <%= comment.content %>
     </div>
 <% end %>
 
