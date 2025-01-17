@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   def create
     @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.build(comment_params)
+    @comment.user_id = Current.user.id
 
     if @comment.save
       redirect_to @ticket, notice: "Comment successfully added."
