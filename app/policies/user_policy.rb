@@ -8,7 +8,7 @@ class UserPolicy
   end
 
   def is_agent?
-    @user.role == 2 # Support Agent
+    @user.role_id == 2 # Support Agent
   end
 
   def can_access_admin_portal?
@@ -20,7 +20,7 @@ class UserPolicy
   end
 
   def can_access_ticket?(ticket)
-    is_admin? || is_ticket_owner?(ticket)
+    global_ticket_scope? || is_ticket_owner?(ticket)
   end
 
   def global_ticket_scope?
