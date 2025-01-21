@@ -8,7 +8,6 @@ class SignupController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.role_id = 3 # User role
-    puts @user
     if @user.save!
       UserMailer.registration_confirmation(@user).deliver
       flash[:success] = "Please confirm your email address to continue."
