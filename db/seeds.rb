@@ -7,6 +7,16 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Role.delete_all
+Status.delete_all
+User.delete_all
+
 Role.create(name: "Admin")
 Role.create(name: "Support Agent")
 Role.create(name: "User")
+
+Status.create(name: "Open")
+Status.create(name: "Pending")
+Status.create(name: "Resolved")
+Status.create(name: "Closed")

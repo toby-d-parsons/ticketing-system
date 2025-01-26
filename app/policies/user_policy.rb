@@ -4,11 +4,11 @@ class UserPolicy
   end
 
   def is_admin?
-    @user.role_id == 1 # Admin
+    @user.role_id == Role.find_by(name: "Admin").id
   end
 
   def is_agent?
-    @user.role_id == 2 # Support Agent
+    @user.role_id == Role.find_by(name: "Support Agent").id
   end
 
   def can_access_admin_portal?

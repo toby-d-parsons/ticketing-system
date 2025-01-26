@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
       redirect_to @ticket, notice: "Comment successfully added."
     else
       @comments = @ticket.comments
-      render "tickets/show", status: :unprocessable_entity
+      redirect_to "/tickets/show", status: :unprocessable_entity
     end
   end
 
