@@ -1,10 +1,8 @@
 require 'rails_helper'
 
-RSpec.configure do |config|
-  config.include TestHelpers, type: :system
-end
-
 describe 'Authentication', type: :system do
+  include AuthenticationHelpers, UIHelpers
+
   context 'Sign-up with valid credentials' do
     it 'sends an activation email to the user' do
       visit signup_path
@@ -12,8 +10,7 @@ describe 'Authentication', type: :system do
       fill_in 'user_email_address', with: 'exampleemail1093@gmail.com'
       fill_in 'user_password', with: 'Password1!'
       fill_in 'user_password_confirmation', with: 'Password1!'
-      click_button 'Create User'
-      expect(page).to have_current_path('/session/new', wait: 10)
+      click_and_expect(:button, 'Create User', '/session/new')
       expect(page).to have_content('Please confirm your email address to continue.')
     end
   end
@@ -26,8 +23,7 @@ describe 'Authentication', type: :system do
         fill_in 'user_email_address', with: 'invalid-email'
         fill_in 'user_password', with: 'Password1!'
         fill_in 'user_password_confirmation', with: 'Password1!'
-        click_button 'Create User'
-        expect(page).to have_current_path('/signup', wait: 10)
+        click_and_expect(:button, 'Create User', '/signup')
       end
 
       it 'does not allow submission when the email address is already taken' do
@@ -37,8 +33,7 @@ describe 'Authentication', type: :system do
         fill_in 'user_email_address', with: 'takenemail@test.com'
         fill_in 'user_password', with: 'Password1!'
         fill_in 'user_password_confirmation', with: 'Password1!'
-        click_button 'Create User'
-        expect(page).to have_current_path('/signup', wait: 10)
+        click_and_expect(:button, 'Create User', '/signup')
       end
     end
 
@@ -65,6 +60,36 @@ describe 'Authentication', type: :system do
     end
   end
 
+  context 'Reset password with existing email address' do
+    it 'lets the user reset their password via an email link' do
+      user = create(:user)
+
+      visit root_path
+      click_and_expect(:link, 'Forgot password?', '/passwords/new')
+
+      fill_in 'email_address', with: user.email_address
+      click_button 'Email reset instructions'
+
+      reset_token = user.password_reset_token
+
+      visit edit_password_path(token: reset_token)
+      expect(page).to have_content('Update your password', wait: 10)
+      expect(page).to have_current_path("/passwords/#{reset_token}/edit", wait: 10)
+
+      new_password = 'Password1!'
+
+      fill_in 'password', with: new_password
+      fill_in 'password_confirmation', with: new_password
+      click_and_expect(:button, 'Save', '/session/new')
+      expect(page).to have_content('Password has been reset', wait: 10)
+
+      user.password = new_password
+      sign_in_as(user)
+      expect(page).to have_current_path('/', wait: 10)
+      expect(page).to have_content('Tickets')
+    end
+  end
+
   context 'Login with invalid credentials' do
     it 'denies access and displays an error message' do
       user = create(:user, password: "Password1!")
@@ -80,8 +105,7 @@ describe 'Authentication', type: :system do
       user = create(:user)
       sign_in_as(user)
       expect(page).to have_current_path('/', wait: 10)
-      click_button 'Log out'
-      expect(page).to have_current_path('/session/new', wait: 10)
+      click_and_expect(:button, 'Log out', '/session/new')
     end
   end
 end

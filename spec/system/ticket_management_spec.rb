@@ -1,17 +1,14 @@
 require 'rails_helper'
 
-RSpec.configure do |config|
-  config.include TestHelpers, type: :system
-end
-
 describe 'Ticket Management', type: :system do
-  include TicketHelpers
+  include UIHelpers, AuthenticationHelpers, TicketHelpers
 
   context 'Create a new ticket with valid inputs' do
     it 'successfully creates a new ticket and displays it in the ticket list' do
       user = create(:user)
       sign_in_as(user)
-      expect_path_and_click('/', 'New Ticket', '/tickets/new')
+      expect(page).to have_current_path('/', wait: 10)
+      click_and_expect(:link, 'New Ticket', '/tickets/new')
 
       fill_ticket_form(
         title: 'Test title',
@@ -36,7 +33,8 @@ describe 'Ticket Management', type: :system do
 
     before do
       sign_in_as(user)
-      expect_path_and_click('/', 'New Ticket', '/tickets/new')
+      expect(page).to have_current_path('/', wait: 10)
+      click_and_expect(:link, 'New Ticket', '/tickets/new')
     end
 
     it 'does not allow submission when the title is missing' do
@@ -63,13 +61,14 @@ describe 'Ticket Management', type: :system do
   end
 
   context 'Edits a ticket with valid inputs' do
-    let(:user) { create(:user) }
-    let(:ticket) { create(:ticket, user_id: user.id) }
+    let!(:user) { create(:user) }
+    let!(:ticket) { create(:ticket, user_id: user.id) }
 
     before do
       sign_in_as(user)
-      expect_path_and_click('/', ticket.title, "/tickets/#{ticket.id}")
-      click_and_expect_link('Edit', "/tickets/#{ticket.id}/edit")
+      expect(page).to have_current_path('/', wait: 10)
+      click_and_expect(:link, ticket.title, "/tickets/#{ticket.id}")
+      click_and_expect(:link, 'Edit', "/tickets/#{ticket.id}/edit")
     end
 
     it 'successfully updates the ticket when the title is provided' do
@@ -105,13 +104,14 @@ describe 'Ticket Management', type: :system do
   end
 
   context 'Edits a ticket with invalid inputs' do
-    let(:user) { create(:user) }
-    let(:ticket) { create(:ticket, user_id: user.id) }
+    let!(:user) { create(:user) }
+    let!(:ticket) { create(:ticket, user_id: user.id) }
 
     before do
       sign_in_as(user)
-      expect_path_and_click('/', ticket.title, "/tickets/#{ticket.id}")
-      click_and_expect_link('Edit', "/tickets/#{ticket.id}/edit")
+      expect(page).to have_current_path('/', wait: 10)
+      click_and_expect(:link, ticket.title, "/tickets/#{ticket.id}")
+      click_and_expect(:link, 'Edit', "/tickets/#{ticket.id}/edit")
     end
 
     it 'does not update the ticket when the title is missing' do
@@ -128,12 +128,13 @@ describe 'Ticket Management', type: :system do
   end
 
   context 'Delete a ticket' do
-    let(:user) { create(:user) }
-    let(:ticket) { create(:ticket, user_id: user.id) }
+    let!(:user) { create(:user) }
+    let!(:ticket) { create(:ticket, user_id: user.id) }
 
     before do
       sign_in_as(user)
-      expect_path_and_click('/', ticket.title, "/tickets/#{ticket.id}")
+      expect(page).to have_current_path('/', wait: 10)
+      click_and_expect(:link, ticket.title, "/tickets/#{ticket.id}")
     end
 
     it 'successfully deletes a new ticket and removes it from the ticket list' do
@@ -146,12 +147,13 @@ describe 'Ticket Management', type: :system do
   end
 
   context 'Adding a comment' do
-    let(:user) { create(:user) }
-    let(:ticket) { create(:ticket, user_id: user.id) }
+    let!(:user) { create(:user) }
+    let!(:ticket) { create(:ticket, user_id: user.id) }
 
     before do
       sign_in_as(user)
-      expect_path_and_click('/', ticket.title, "/tickets/#{ticket.id}")
+      expect(page).to have_current_path('/', wait: 10)
+      click_and_expect(:link, ticket.title, "/tickets/#{ticket.id}")
     end
 
     it 'successfully creates a comment and displays it within the ticket' do
