@@ -24,7 +24,11 @@ Rails.application.routes.draw do
   get "admin", to: "admin#index"
 
   namespace :admin do
-    resources :users
+    resources :users do
+      member do
+        post :resend_activation_email
+      end
+    end
   end
 
   get "signup", to: "signup#new"

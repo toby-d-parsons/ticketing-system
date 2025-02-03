@@ -17,10 +17,16 @@ class Admin::UsersController < AdminController
     @role = @user.role.name
     if @user.save
       UserMailer.registration_confirmation(@user).deliver
-      redirect_to admin_users_path
+      redirect_to admin_users_path, notice: "User created successfully"
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def resend_activation_email
+    user = User.find(params[:id])
+    UserMailer.registration_confirmation(user).deliver
+    redirect_to admin_users_path, notice: "Activation email resent"
   end
 
   def edit
