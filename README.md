@@ -6,6 +6,7 @@ A web-based application designed to manage and track tickets for various issues 
 
 - **User Authentication:** Secure sign-up and login functionality.
 - **Ticket Management:** Create, view, edit, and delete tickets.
+- **Ticket Accountability:** Assign Support Agents to tickets for clear ownership of issues
 - **Commenting System:** Add comments to tickets for collaborative discussions.
 - **Status Tracking:** Assign and update ticket statuses to monitor progress.
 
