@@ -77,7 +77,8 @@ describe 'Ticket Management', type: :system do
       expect_page_content(
         'Updated Title',
         ticket.description,
-        'Open'
+        'Open',
+        'Unassigned'
       )
     end
 
@@ -87,7 +88,8 @@ describe 'Ticket Management', type: :system do
       expect_page_content(
         ticket.title,
         'Updated Description',
-        'Open'
+        'Open',
+        'Unassigned'
       )
     end
 
@@ -98,7 +100,22 @@ describe 'Ticket Management', type: :system do
       expect_page_content(
         ticket.title,
         ticket.description,
-        'Pending'
+        'Pending',
+        'Unassigned'
+      )
+    end
+
+    it 'successfully updates the ticket when the assigned agent is changed' do
+      agent = create(:user, role_id: Role.find_by(name: "Support Agent").id)
+      visit current_path
+      select agent.email_address, from: 'ticket_assigned_agent_id'
+      click_button 'Update Ticket'
+
+      expect_page_content(
+        ticket.title,
+        ticket.description,
+        'Open',
+        agent.email_address
       )
     end
   end

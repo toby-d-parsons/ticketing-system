@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_15_161348) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_04_193318) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "ticket_id", null: false
@@ -49,6 +49,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_15_161348) do
     t.text "description"
     t.integer "status_id"
     t.integer "user_id"
+    t.integer "assigned_agent_id"
+    t.index ["assigned_agent_id"], name: "index_tickets_on_assigned_agent_id"
     t.index ["status_id"], name: "index_tickets_on_status_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
@@ -70,5 +72,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_15_161348) do
   add_foreign_key "sessions", "users"
   add_foreign_key "tickets", "statuses"
   add_foreign_key "tickets", "users"
+  add_foreign_key "tickets", "users", column: "assigned_agent_id"
   add_foreign_key "users", "roles"
 end

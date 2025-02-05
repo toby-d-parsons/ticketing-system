@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :tickets
+  has_many :assigned_tickets, class_name: "Ticket", foreign_key: "assigned_agent_id"
   belongs_to :role
   has_many :comments
   before_create :confirmation_token

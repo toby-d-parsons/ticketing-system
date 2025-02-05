@@ -11,6 +11,11 @@
         <%= form.label :status %>
         <%= form.collection_select(:status_id, @statuses, :id, :name) %>
     </div>
+    <% if action_name == 'edit' %>
+    <div>
+        <%= form.collection_select(:assigned_agent_id, User.where(role_id: Role.find_by(name: "Support Agent").id), :id, :email_address, include_blank: "Unassigned") %>
+    </div>
+    <% end %>
     <div>
         <%= form.submit %>
     </div>

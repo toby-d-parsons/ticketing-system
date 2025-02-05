@@ -3,6 +3,7 @@
 <div>Title: <%= @ticket.title %></div>
 <div>Description: <%= @ticket.description %></div>
 <div>Status: <%= @status %></div>
+<div>Assigned Agent: <%= @ticket.assigned_agent&.email_address || "Unassigned" %>
 
 <h4>Comments</h4>
 <% @comments.each do |comment| %>

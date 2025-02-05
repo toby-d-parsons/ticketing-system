@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+    @ticket = Ticket.new(ticket_params.except(:assigned_agent_id))
     @ticket.user_id = Current.user.id
     if @ticket.save
       redirect_to @ticket
@@ -57,7 +57,11 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.expect(ticket: [ :title, :description, :status_id ])
+      if action_name == "update"
+        params.expect(ticket: [ :title, :description, :status_id, :assigned_agent_id ])
+      else
+        params.expect(ticket: [ :title, :description, :status_id ])
+      end
     end
 
     def authorize_ticket_access

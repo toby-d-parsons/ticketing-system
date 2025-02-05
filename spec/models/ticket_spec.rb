@@ -14,6 +14,12 @@ describe Ticket, type: :model do
       it "is valid with a title, description, valid status_id, and a valid user_id" do
         expect(subject).to be_valid
       end
+
+      it "is valid with a valid assign_agent_id" do
+        user = create(:user, role_id: Role.find_by(name: "Support Agent").id)
+        subject.assigned_agent_id = user.id
+        expect(subject).to be_valid
+      end
     end
 
     context "invalid attributes" do
@@ -61,6 +67,19 @@ describe Ticket, type: :model do
 
         it "is invalid without a valid user_id" do
           subject.user_id = 2000 # Assuming that no user with id 2000 exists
+          expect(subject).to be_invalid
+        end
+      end
+
+      context "assigned_agent_id" do
+        it "is invalid without an assigned_agent_id that exists" do
+          subject.assigned_agent_id = 2000 # Assuming that no agent with id 2000 exists
+          expect(subject).to be_invalid
+        end
+
+        it "is invalid without a valid assigned_agent_id" do
+          user = create(:user, role_id: Role.find_by(name: "User").id)
+          subject.assigned_agent_id = user.id # Tries to assign a non-Support Agent user to the ticket
           expect(subject).to be_invalid
         end
       end
