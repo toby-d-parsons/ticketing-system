@@ -34,4 +34,13 @@ Rails.application.routes.draw do
   get "signup", to: "signup#new"
   post "signup", to: "signup#create"
   get "signup/:id/confirm_email", to: "signup#confirm_email", as: :confirm_email_signup
+
+  get "support/home", to: "support#index"
+  get "support", to: redirect("support/home")
+
+  namespace :support do
+    resources :tickets, only: [ :index, :create, :new, :edit, :show, :update ] do
+      resources :comments, only: [ :create ]
+    end
+  end
 end

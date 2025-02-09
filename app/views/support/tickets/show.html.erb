@@ -1,0 +1,19 @@
+<h1><%= @ticket.id %></h1>
+
+<div>Title: <%= @ticket.title %></div>
+<div>Description: <%= @ticket.description %></div>
+<div>Status: <%= @ticket.status.name %></div>
+<div>Assigned Agent: <%= @ticket.assigned_agent&.email_address || "Unassigned" %>
+
+<h4>Comments</h4>
+<% @comments.each do |comment| %>
+    <div>
+        <%= comment.user&.email_address || "Unknown" %>: <%= comment.created_at %>: <%= comment.content %>
+    </div>
+<% end %>
+
+<%= render "support/tickets/form_comment", ticket: @ticket %><!--  We need to relook at this and how is implemented here -->
+
+<div>
+    <%= link_to "Back", support_tickets_path %>
+</div>
