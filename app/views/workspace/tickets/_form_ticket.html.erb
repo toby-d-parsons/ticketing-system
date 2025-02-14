@@ -1,0 +1,21 @@
+<%= form_with model: @ticket, url: @ticket.persisted? ? workspace_ticket_path(@ticket) : workspace_tickets_path, method: @ticket.persisted? ? :patch : :post do |form| %>
+    <div>
+        <%= form.label :title %>
+        <%= form.text_field :title, maxlength: 255, size: 60 %>
+    </div>
+    <div>
+        <%= form.label :description %>
+        <%= form.text_field :description, maxlength: 9810, size: 90 %>
+    </div>
+    <div>
+        <%= form.label :status %>
+        <%= form.collection_select(:status_id, @statuses, :id, :name) %>
+    </div>
+    <div>
+        <%= form.label :assigned_agent %>
+        <%= form.collection_select(:assigned_agent_id, User.where(role_id: Role.find_by(name: "Support Agent").id), :id, :email_address, include_blank: "Unassigned") %>
+    </div>
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>

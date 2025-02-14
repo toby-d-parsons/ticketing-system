@@ -1,0 +1,24 @@
+<h1>Tickets</h1>
+
+<%= link_to "New", new_workspace_ticket_path %>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created By</th>
+        <th>Status</th>
+        <th>Assigned Agent</th>
+        <th>Edit</th>
+    </tr>
+    <% @tickets.each do |data| %>
+        <tr id=row-<%=data.id%>>
+            <td><%= data.title %></td>
+            <td><%= data.description %></td>
+            <td><%= data.user.email_address %>
+            <td><%= data.status.name %></td>
+            <td><%= data.assigned_agent&.email_address || "Unassigned" %></td>
+            <td><%= link_to "Edit", edit_workspace_ticket_path(data.id) %></td>
+        </tr>
+    <% end %>
+</table>

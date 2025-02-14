@@ -8,13 +8,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_user
-    Rails.logger.debug "Session (before access): #{session.inspect}"
-
     if session[:user_id].present?
-      Rails.logger.debug "Session user_id: #{session[:user_id]}"
       Current.user = User.find_by(id: session[:user_id])
     end
-
-    Rails.logger.debug "Session (after access): #{session.inspect}"
   end
 end

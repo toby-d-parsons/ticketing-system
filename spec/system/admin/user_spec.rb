@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'User Management', type: :system do
-  include AuthenticationHelpers, UIHelpers, UserHelpers
+describe 'User', type: :system do
+  include AuthenticationHelpers, UIHelpers, NavigationHelpers, FormHelpers
 
   let(:user) { create(:user, role_id: Role.find_by(name: "Admin").id) }
 
@@ -11,7 +11,7 @@ describe 'User Management', type: :system do
       sign_in_as(user)
       navigate_to_users
       click_and_expect(:link, 'New', '/admin/users/new')
-      fill_user_form(
+      fill_in_user_form(
         email_address: 'testaccount@testing.com',
         role: 'User',
         password: 'Password1!'

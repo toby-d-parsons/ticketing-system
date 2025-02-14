@@ -5,8 +5,6 @@ class Support::TicketsController < SupportController
 
   def index
     @tickets = Ticket.where(user_id: Current.user.id)
-    Rails.logger.debug "Session data: #{session.inspect}"
-    Rails.logger.debug "Current.user: #{Current.user.inspect}"
   end
 
   def show

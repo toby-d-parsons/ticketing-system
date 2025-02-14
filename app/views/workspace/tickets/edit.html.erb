@@ -1,0 +1,13 @@
+<h1><%= @ticket.id %></h1>
+
+<%= render "form_ticket", ticket: @ticket %>
+
+<h4>Comments</h4>
+<% @comments.each do |comment| %>
+    <div>
+        <%= comment.user&.email_address || "Unknown" %>: <%= comment.created_at %>: <%= comment.content %>
+    </div>
+<% end %>
+
+<%= render "form_comment", ticket: @ticket %>
+<%= link_to "Cancel", workspace_tickets_path %>

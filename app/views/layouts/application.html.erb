@@ -31,6 +31,7 @@
     <nav>
       <%= link_to "Home", root_path %>
       <%= link_to "Portal Home", support_home_path %>
+      <%= link_to "Dashboard", workspace_dashboard_path %>
       <%= link_to "Log in", new_session_path unless authenticated? %>
       <%= link_to "Sign Up", signup_path unless authenticated? %>
       <%= button_to "Log out", session_path, method: :delete if authenticated? %>

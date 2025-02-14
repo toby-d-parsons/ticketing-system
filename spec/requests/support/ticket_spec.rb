@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Support Tickets API", type: :request do
-  include RequestHelper
+  include ResponseMatchers
 
   context "as a user" do
     include_context "logged in as user"
