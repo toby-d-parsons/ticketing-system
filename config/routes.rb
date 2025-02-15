@@ -14,13 +14,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :tickets do
-    resources :comments
-  end
-
   resources :statuses
 
-  root "tickets#index"
   get "admin", to: "admin#index"
 
   namespace :admin do
@@ -35,6 +30,7 @@ Rails.application.routes.draw do
   post "signup", to: "signup#create"
   get "signup/:id/confirm_email", to: "signup#confirm_email", as: :confirm_email_signup
 
+  root "support#index"
   get "support/home", to: "support#index"
   get "support", to: redirect("support/home")
 

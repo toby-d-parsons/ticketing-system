@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Authentication', type: :system do
-  include AuthenticationHelpers, UIHelpers
+  include AuthenticationHelpers, UIHelpers, NavigationHelpers
 
   context 'Sign-up with valid credentials' do
     it 'sends an activation email to the user' do
@@ -10,7 +10,7 @@ describe 'Authentication', type: :system do
       fill_in 'user_email_address', with: 'exampleemail1093@gmail.com'
       fill_in 'user_password', with: 'Password1!'
       fill_in 'user_password_confirmation', with: 'Password1!'
-      click_and_expect(:button, 'Create User', '/session/new')
+      click_and_expect(:button, 'Create User', '/')
       expect(page).to have_content('Please confirm your email address to continue.')
     end
   end
@@ -64,8 +64,7 @@ describe 'Authentication', type: :system do
     it 'lets the user reset their password via an email link' do
       user = create(:user)
 
-      visit root_path
-      click_and_expect(:link, 'Forgot password?', '/passwords/new')
+      go_to_passwords_new
 
       fill_in 'email_address', with: user.email_address
       click_button 'Email reset instructions'

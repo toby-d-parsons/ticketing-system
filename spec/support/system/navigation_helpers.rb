@@ -1,4 +1,9 @@
 module NavigationHelpers
+  def go_to_passwords_new
+    visit new_session_path
+    click_and_expect(:link, "Forgot password", "/passwords/new")
+  end
+
   def go_to_support_tickets_index
     click_and_expect(:link, "Portal Home", "/support/home")
     click_and_expect(:link, "Tickets", "/support/tickets")
@@ -33,9 +38,14 @@ module NavigationHelpers
     end
   end
 
-  def navigate_to_users
-    visit root_path
+  def go_to_admin_users
     click_and_expect(:link, 'Admin', '/admin')
     click_and_expect(:link, 'Users', '/admin/users')
+  end
+
+  def go_to_admin_users_new
+    click_and_expect(:link, 'Admin', '/admin')
+    click_and_expect(:link, 'Users', '/admin/users')
+    click_and_expect(:link, 'New', '/admin/users/new')
   end
 end

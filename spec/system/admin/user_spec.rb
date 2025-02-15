@@ -7,10 +7,8 @@ describe 'User', type: :system do
 
   context 'Creating a new user with valid credentials' do
     it 'shows the new user in the user list' do
-      visit root_path
       sign_in_as(user)
-      navigate_to_users
-      click_and_expect(:link, 'New', '/admin/users/new')
+      go_to_admin_users_new
       fill_in_user_form(
         email_address: 'testaccount@testing.com',
         role: 'User',
@@ -25,7 +23,7 @@ describe 'User', type: :system do
     it 'allows you to resend an activation email to the user' do
       user2 = create(:user, role_id: Role.find_by(name: "User").id, email_confirmed: false)
       sign_in_as(user)
-      navigate_to_users
+      go_to_admin_users
       expect_page_content(user2.email_address, 'Resend Activation Email')
       click_and_expect(:button, 'Resend Activation Email', '/admin/users')
       expect_page_content(user2.email_address, 'Resend Activation Email', 'Activation email resent')
