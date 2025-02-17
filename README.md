@@ -9,6 +9,7 @@ A web-based application designed to manage and track tickets for various issues 
 - **Ticket Accountability:** Assign Support Agents to tickets for clear ownership of issues
 - **Commenting System:** Add comments to tickets for collaborative discussions.
 - **Status Tracking:** Assign and update ticket statuses to monitor progress.
+- **Role-Based Access Control:** Restrict actions based on user roles (Admin, Support Agent, User).
 
 ## Built With
 
@@ -22,7 +23,7 @@ This project was developed using the following technologies:
 This project is tested with:
 
 * [RSpec](https://rspec.info/) - Unit and integration testing
-* [Capybara](https://teamcapybara.github.io/capybara/) - End-to-end testing
+* [Capybara](https://teamcapybara.github.io/capybara/) - System tests for UI interactions
 * [FactoryBot](https://github.com/thoughtbot/factory_bot) - Test data setup
 * [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) - Simplifies model and controller tests
 
