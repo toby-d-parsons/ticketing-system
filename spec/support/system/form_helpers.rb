@@ -4,7 +4,8 @@ module FormHelpers
     fill_in "Description", with: description
   end
 
-  def fill_in_ticket_form_from_workspace_page(title:, description:, status:, assigned_agent:)
+  def fill_in_ticket_form_from_workspace_page(requester:, title:, description:, status:, assigned_agent:)
+    select requester, from: "ticket_requester_id"
     fill_in "Title", with: title
     fill_in "Description", with: description
     select status, from: "ticket_status_id"

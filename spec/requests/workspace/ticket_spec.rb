@@ -42,10 +42,10 @@ describe "Workspace Tickets API", type: :request do
         new_params =
         {
           ticket: {
+            requester_id: user.id,
             title: "test title",
             description: "test description",
-            status_id: status.id,
-            user_id: user.id
+            status_id: status.id
           }
         }
 
@@ -60,10 +60,10 @@ describe "Workspace Tickets API", type: :request do
         new_params =
         {
           ticket: {
+            requester_id: user.id,
             title: "",
             description: "test description",
-            status_id: status.id,
-            user_id: user.id
+            status_id: status.id
           }
         }
 
@@ -79,10 +79,10 @@ describe "Workspace Tickets API", type: :request do
       it "updates the ticket when valid values are submitted" do
         new_params = {
           ticket: {
+            requester_id: ticket.requester_id,
             title: "newly patched title",
             description: ticket.description,
-            status_id: ticket.status_id,
-            assigned_agent_id: ticket.assigned_agent_id
+            status_id: ticket.status_id
           }
         }
 
@@ -94,10 +94,10 @@ describe "Workspace Tickets API", type: :request do
       it "does not update the ticket when invalid values are submitted" do
         new_params = {
           ticket: {
+            requester_id: ticket.assigned_agent_id,
             title: "",
             description: ticket.description,
-            status_id: ticket.status_id,
-            assigned_agent_id: ticket.assigned_agent_id
+            status_id: ticket.status_id
           }
         }
 

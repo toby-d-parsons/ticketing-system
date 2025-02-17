@@ -1,6 +1,7 @@
 class Workspace::TicketsController < WorkspaceController
   before_action :set_ticket, only: %i[ edit update destroy ]
   before_action :load_available_statuses
+  before_action :load_available_requesters, only: %i[ new create edit update ]
   before_action :set_status, only: %i[ edit update ]
   before_action :require_admin, only: :destroy
   def index
@@ -13,7 +14,6 @@ class Workspace::TicketsController < WorkspaceController
 
   def create
     @ticket = Ticket.new(ticket_params)
-    @ticket.requester_id = Current.user.id
 
     if @ticket.save
       redirect_to workspace_tickets_path
@@ -51,12 +51,16 @@ class Workspace::TicketsController < WorkspaceController
     @statuses = Status.all
   end
 
+  def load_available_requesters
+    @requesters = User.all
+  end
+
   def set_status
     @status = @ticket.status.name
   end
 
   def ticket_params
-      params.expect(ticket: [ :title, :description, :status_id, :assigned_agent_id ])
+      params.expect(ticket: [ :title, :description, :status_id, :assigned_agent_id, :requester_id ])
   end
 
   def require_admin

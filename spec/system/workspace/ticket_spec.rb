@@ -19,6 +19,7 @@ describe "Ticket", type: :system do
   context "Creating a new ticket" do
     let!(:ticket_details) do
       {
+        requester: user.email_address,
         title: "Test title",
         description: "Test description",
         status: "Pending",
@@ -31,6 +32,7 @@ describe "Ticket", type: :system do
       fill_in_ticket_form_from_workspace_page(**ticket_details)
 
       click_and_expect(:button, "Create Ticket", "/workspace/tickets")
+      expect(page).to have_selector("td", text: ticket_details[:requester], wait: 10)
       expect(page).to have_selector("td", text: ticket_details[:title], wait: 10)
       expect(page).to have_selector("td", text: ticket_details[:description], wait: 10)
       expect(page).to have_selector("td", text: ticket_details[:status], wait: 10)

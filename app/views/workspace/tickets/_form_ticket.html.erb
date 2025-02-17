@@ -1,5 +1,9 @@
 <%= form_with model: @ticket, url: @ticket.persisted? ? workspace_ticket_path(@ticket) : workspace_tickets_path, method: @ticket.persisted? ? :patch : :post do |form| %>
     <div>
+        <%= form.label :requester %>
+        <%= form.collection_select(:requester_id, @requesters, :id, :email_address, prompt: true) %>
+    </div>
+    <div>
         <%= form.label :title %>
         <%= form.text_field :title, maxlength: 255, size: 60 %>
     </div>
