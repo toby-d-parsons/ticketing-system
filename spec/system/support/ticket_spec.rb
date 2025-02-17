@@ -7,7 +7,7 @@ describe "Ticket", type: :system do
   let!(:other_user_ticket) { create(:ticket) }
 
   context "Viewing tickets" do
-    let!(:user_ticket) { create(:ticket, title: "this is a test woohoo", user: user) }
+    let!(:user_ticket) { create(:ticket, title: "this is a test woohoo", requester: user) }
 
     it "shows tickets created by the user but not those of other users" do
       sign_in_as(user)
@@ -71,7 +71,7 @@ describe "Ticket", type: :system do
 
   context "Adding a comment" do
     let!(:user) { create(:user) }
-    let!(:ticket) { create(:ticket, user_id: user.id) }
+    let!(:ticket) { create(:ticket, requester_id: user.id) }
 
     before do
       sign_in_as(user)

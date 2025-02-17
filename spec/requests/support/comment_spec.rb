@@ -6,8 +6,8 @@ describe "Support Ticket Comments API", type: :request do
   context "as a user" do
     include_context "logged in as user"
 
-    let!(:user_ticket) { create(:ticket, user: user, title: "This is a test") }
-    let!(:user_ticket2) { create(:ticket, user: user, title: "A completely random string") }
+    let!(:user_ticket) { create(:ticket, requester: user, title: "This is a test") }
+    let!(:user_ticket2) { create(:ticket, requester: user, title: "A completely random string") }
     let!(:other_user_ticket) { create(:ticket) }
 
     describe "POST support/tickets/:ticket_id/comments" do

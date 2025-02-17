@@ -4,7 +4,7 @@ describe Ticket, type: :model do
   subject { create(:ticket) }
 
   context "Associations" do
-    it { should belong_to(:user) }
+    it { should belong_to(:requester) }
     it { should belong_to(:status) }
     it { should have_many(:comments) }
   end
@@ -60,13 +60,13 @@ describe Ticket, type: :model do
       end
 
       context "user_id" do
-        it "is invalid without a user_id" do
-          subject.user_id = nil
+        it "is invalid without a requester_id" do
+          subject.requester_id = nil
           expect(subject).to be_invalid
         end
 
-        it "is invalid without a valid user_id" do
-          subject.user_id = 2000 # Assuming that no user with id 2000 exists
+        it "is invalid without a valid requester_id" do
+          subject.requester_id = 2000 # Assuming that no user with id 2000 exists
           expect(subject).to be_invalid
         end
       end

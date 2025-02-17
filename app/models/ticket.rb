@@ -1,7 +1,7 @@
 class Ticket < ApplicationRecord
   has_many :comments, dependent: :destroy
   belongs_to :status
-  belongs_to :user
+  belongs_to :requester, class_name: "User", foreign_key: "requester_id"
   belongs_to :assigned_agent, class_name: "User", foreign_key: "assigned_agent_id", optional: true
 
   validate :assigned_agent_exists_with_valid_role

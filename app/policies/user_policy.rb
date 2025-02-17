@@ -16,7 +16,7 @@ class UserPolicy
   end
 
   def is_ticket_owner?(ticket)
-    @user.id === ticket.user_id
+    @user.id === ticket.requester_id
   end
 
   def can_access_ticket?(ticket)

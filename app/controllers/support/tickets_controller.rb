@@ -4,7 +4,7 @@ class Support::TicketsController < SupportController
   before_action :authorize_ticket_access, only: %i[ show edit update ]
 
   def index
-    @tickets = Ticket.where(user_id: Current.user.id)
+    @tickets = Ticket.where(requester_id: Current.user.id)
   end
 
   def show
@@ -26,7 +26,7 @@ class Support::TicketsController < SupportController
   def create
     @ticket = Ticket.new(ticket_params)
     @ticket.status_id = Status.find_by(name: "Open").id
-    @ticket.user_id = Current.user.id
+    @ticket.requester_id = Current.user.id
 
     if @ticket.save
       redirect_to support_tickets_path

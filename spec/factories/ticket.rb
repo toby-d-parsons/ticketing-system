@@ -3,6 +3,6 @@ FactoryBot.define do
       title { "random title" }
       description { "random text" }
       status
-      user
+      association :requester, factory: :user
   end
 end

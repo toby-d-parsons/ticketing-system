@@ -13,7 +13,7 @@ class Workspace::TicketsController < WorkspaceController
 
   def create
     @ticket = Ticket.new(ticket_params)
-    @ticket.user_id = Current.user.id
+    @ticket.requester_id = Current.user.id
 
     if @ticket.save
       redirect_to workspace_tickets_path
