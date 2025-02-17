@@ -3,6 +3,22 @@ require 'rails_helper'
 describe "Workspace Tickets API", type: :request do
   include ResponseMatchers
 
+  context "as an admin" do
+    include_context "logged in as an admin"
+
+    let!(:ticket) { create(:ticket) }
+
+    context "DELETE /workspace/tickets/:id" do
+      it "deletes the ticket" do
+        delete "/workspace/tickets/#{ticket.id}"
+        expect(response).to have_http_status(:found)
+
+        get "/workspace/tickets/#{ticket.id}"
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   context "as an agent" do
     include_context "logged in as a support agent"
 
@@ -87,6 +103,14 @@ describe "Workspace Tickets API", type: :request do
 
         patch "/workspace/tickets/#{ticket.id}", params: new_params
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context "DELETE /workspace/tickets/:id" do
+      it "cannot delete the ticket" do
+        delete "/workspace/tickets/#{ticket.id}"
+
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

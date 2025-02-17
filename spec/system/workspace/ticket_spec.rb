@@ -4,6 +4,7 @@ describe "Ticket", type: :system do
   include AuthenticationHelpers, UIHelpers, FormHelpers, NavigationHelpers
 
   let(:user) { create(:user, role: Role.find_by(name: "Support Agent")) }
+  let(:admin) { create(:user, role: Role.find_by(name: "Admin")) }
 
   context "When visiting the tickets page" do
     it "shows a list of all tickets" do
@@ -68,6 +69,31 @@ describe "Ticket", type: :system do
       click_and_expect(:link, "Cancel", "/workspace/tickets")
       expect(ticket.title).to_not eq("")
       expect(page).to have_selector("td", text: ticket.title, wait: 10)
+    end
+  end
+
+  context "Deleting a ticket" do
+    let!(:ticket) { create(:ticket) }
+
+    before do
+      sign_in_as(admin)
+    end
+
+    it "deletes a ticket from the ticket list" do
+      go_to_workspace_tickets
+      click_button("Delete")
+      accept_alert
+
+      expect(page).to_not have_selector("td", text: ticket.title, wait: 10)
+    end
+
+    it "deletes a ticket from the edit page" do
+      go_to_workspace_tickets_edit(ticket)
+      click_button("Delete")
+      accept_alert
+
+      expect(page).to have_current_path("/workspace/tickets", wait: 10)
+      expect(page).to_not have_selector("td", text: ticket.title, wait: 10)
     end
   end
 

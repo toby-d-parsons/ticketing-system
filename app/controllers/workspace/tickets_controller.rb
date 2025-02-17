@@ -1,7 +1,8 @@
 class Workspace::TicketsController < WorkspaceController
-  before_action :set_ticket, only: %i[ edit update ]
+  before_action :set_ticket, only: %i[ edit update destroy ]
   before_action :load_available_statuses
   before_action :set_status, only: %i[ edit update ]
+  before_action :require_admin, only: :destroy
   def index
     @tickets = Ticket.all
   end
@@ -36,6 +37,11 @@ class Workspace::TicketsController < WorkspaceController
     end
   end
 
+  def destroy
+    @ticket.destroy
+    redirect_to workspace_tickets_path
+  end
+
   private
   def set_ticket
     @ticket = Ticket.find(params[:id])
@@ -51,5 +57,11 @@ class Workspace::TicketsController < WorkspaceController
 
   def ticket_params
       params.expect(ticket: [ :title, :description, :status_id, :assigned_agent_id ])
+  end
+
+  def require_admin
+    unless ::UserPolicy.new.is_admin?
+      render file: "public/404.html", status: :forbidden
+    end
   end
 end

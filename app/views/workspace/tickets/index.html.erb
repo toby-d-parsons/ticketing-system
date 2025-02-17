@@ -10,6 +10,9 @@
         <th>Status</th>
         <th>Assigned Agent</th>
         <th>Edit</th>
+        <% if UserPolicy.new.is_admin? %>
+            <th></th>
+        <% end %>
     </tr>
     <% @tickets.each do |data| %>
         <tr id=row-<%=data.id%>>
@@ -19,6 +22,9 @@
             <td><%= data.status.name %></td>
             <td><%= data.assigned_agent&.email_address || "Unassigned" %></td>
             <td><%= link_to "Edit", edit_workspace_ticket_path(data.id) %></td>
+            <% if UserPolicy.new.is_admin? %>
+                <td><%= button_to "Delete", workspace_ticket_path(data.id), method: :delete, data: { turbo_confirm: "Are you sure?" } %></td>
+            <% end %>
         </tr>
     <% end %>
 </table>

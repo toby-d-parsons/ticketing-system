@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   get "workspace", to: redirect("workspace/dashboard")
 
   namespace :workspace do
-    resources :tickets, only: [ :index, :create, :new, :edit, :show, :update ] do
+    resources :tickets, only: [ :index, :create, :new, :edit, :show, :update, :destroy ] do
       resources :comments, only: [ :create ]
     end
   end

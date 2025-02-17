@@ -11,3 +11,6 @@
 
 <%= render "form_comment", ticket: @ticket %>
 <%= link_to "Cancel", workspace_tickets_path %>
+<% if UserPolicy.new.is_admin? %>
+    <td><%= button_to "Delete", workspace_ticket_path(@ticket.id), method: :delete, data: { turbo_confirm: "Are you sure?" } %></td>
+<% end %>
