@@ -1,0 +1,2 @@
+<%= turbo_stream.append "comments", partial: "workspace/comments/comment", locals: { comment: @comment } %>
+<%= turbo_stream.replace "comment-form", partial: "workspace/tickets/form_comment", locals: { comment: Comment.new } %>

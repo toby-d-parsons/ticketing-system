@@ -65,3 +65,7 @@ group :test do
   gem "factory_bot_rails"
   gem "faker"
 end
+
+gem "tailwindcss-ruby", "~> 4.0"
+
+gem "tailwindcss-rails", "~> 4.1"

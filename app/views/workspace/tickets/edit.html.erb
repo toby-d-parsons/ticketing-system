@@ -3,10 +3,12 @@
 <%= render "form_ticket", ticket: @ticket %>
 
 <h4>Comments</h4>
-<% @comments.each do |comment| %>
-    <div>
-        <%= comment.user&.email_address || "Unknown" %>: <%= comment.created_at %>: <%= comment.content %>
-    </div>
+<%= turbo_frame_tag "comments" do %>
+    <% @comments.each do |comment| %>
+        <div>
+            <%= comment.user&.email_address || "Unknown" %>: <%= comment.created_at %>: <%= comment.content %>
+        </div>
+    <% end %>
 <% end %>
 
 <%= render "form_comment", ticket: @ticket %>
