@@ -19,6 +19,7 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -29,17 +30,10 @@
         <%= message %>
       </div>
     <% end %>
-    <nav>
-    <%= link_to "Log in", new_session_path unless authenticated? %>
-    <%= link_to "Sign Up", signup_path unless authenticated? %>
-    <%= button_to "Log out", session_path, method: :delete if authenticated? %>
-    </nav>
-
-    <div class="flex">
-      <%= render "layouts/sidebar" %>
-      <main class="p-4">
-        <%= yield %>
-      </main>
-    </div>
+    <%= render "layouts/sidebar" %>
+    <%= render "layouts/navbar" %>
+    <main class="ml-[10.1rem] bg-neutral-200/50 h-screen z-0">
+      <%= yield %>
+    </main>
   </body>
 </html>

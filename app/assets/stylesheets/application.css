@@ -1,0 +1,8 @@
+[data-dropdown-target="menu"] {
+    position: absolute !important;
+    right: 0 !important;
+    left: auto !important;
+    top: 60px !important;
+    min-width: 12rem;
+    z-index: 9999 !important;
+  }
