@@ -1,4 +1,4 @@
-<h1><%= @ticket.id %></h1>
+<% content_for :title, "##{@ticket.id}" %>
 
 <div>Title: <%= @ticket.title %></div>
 <div>Description: <%= @ticket.description %></div>
