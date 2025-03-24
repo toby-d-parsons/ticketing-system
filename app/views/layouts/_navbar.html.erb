@@ -27,24 +27,26 @@
       <% end %>
 
       <!-- Dropdown Menu -->
-      <div class="absolute !right-0 !top-[60px] !w-48 bg-emerald-50 divide-y divide-gray-100 rounded-lg shadow-lg 
-                  dark:bg-gray-700 dark:divide-gray-600 !z-[9999] hidden"
-          data-dropdown-target="menu">
-        <div class="px-4 py-3">
-          <span class="block text-sm text-gray-900 dark:text-white"><%= Current.user.role.name %></span>
-          <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><%= Current.user.email_address || "" %></span>
+      <% if authenticated? %>
+        <div class="absolute !right-0 !top-[60px] !w-48 bg-emerald-50 divide-y divide-gray-100 rounded-lg shadow-lg 
+                    dark:bg-gray-700 dark:divide-gray-600 !z-[9999] hidden"
+            data-dropdown-target="menu">
+          <div class="px-4 py-3">
+            <span class="block text-sm text-gray-900 dark:text-white"><%= Current.user.role.name || "" %></span>
+            <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><%= Current.user.email_address || "" %></span>
+          </div>
+          <ul class="py-2">
+            <li>
+              <%= button_to session_path, method: :delete,
+                class: "border-none cursor-pointer 
+                        block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 
+                        dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" do %>
+                Sign out
+              <% end %>
+            </li>
+          </ul>
         </div>
-        <ul class="py-2">
-          <li>
-            <%= button_to session_path, method: :delete,
-              class: "border-none cursor-pointer 
-                      block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 
-                      dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" do %>
-              Sign out
-            <% end %>
-          </li>
-        </ul>
-      </div>
+      <% end %>
     </div>
 
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"

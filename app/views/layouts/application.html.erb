@@ -19,7 +19,7 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -37,7 +37,7 @@
       </aside>
 
       <div class="flex-1">
-        <header class="sticky top-0 h-16">
+        <header class="sticky top-0 h-16 z-50">
           <%= render "layouts/navbar" %>
         </header>
 
