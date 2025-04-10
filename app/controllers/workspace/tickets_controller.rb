@@ -5,7 +5,7 @@ class Workspace::TicketsController < WorkspaceController
   before_action :set_status, only: %i[ edit update ]
   before_action :require_admin, only: :destroy
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.order(:id).page(params[:page]).per(10)
   end
 
   def new
