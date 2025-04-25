@@ -9,7 +9,7 @@
 -%>
 <% current = page.current? %>
 <% base_classes = "page py-1 px-3 h-8 leading-tight items-center justify-center border border-gray-300 dark:border-gray-700" %>
-<% state_classes = current ? "text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:bg-gray-700 dark:text-white" : "text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" %>
+<% state_classes = current ? "text-indigo-900 bg-zinc-500 hover:bg-blue-100 hover:text-blue-700 dark:bg-gray-700 dark:text-white" : "hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" %>
 
 <span class="<%= "#{base_classes} #{state_classes}" %>">
   <%= link_to_unless current, page, url, { remote: remote, rel: page.rel } %>
