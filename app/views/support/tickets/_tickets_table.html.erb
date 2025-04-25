@@ -1,0 +1,43 @@
+<div id="tickets" class="relative overflow-x-auto shadow-md sm:rounded-lg border-emerald-900 border-2">
+  <table class="w-full text-sm text-left rtl:text-right text-zinc-50 dark:text-gray-400 border-separate border-spacing-x-0">
+    <thead class="text-xs uppercase bg-emerald-950/80 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-3 py-3">
+          ID
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Title
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Description
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tickets.each do |data| %>
+        <tr id="row-<%= data.id %>"
+            class="bg-emerald-950 dark:bg-gray-800 dark:border-gray-700 hover:bg-emerald-900 dark:hover:bg-gray-600">
+
+          <th scope="row" class="px-3 py-4 font-medium text-zinc-500 whitespace-nowrap dark:text-white hover:text-zinc-50">
+            <%= link_to "##{data.id}", support_ticket_path(data) %>
+          </th>
+          <td class="px-6 py-4"><%= data.title %></td>
+          <td class="px-6 py-4"><%= data.description %></td>
+          <td class="px-6 py-4"><%= data.status.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <nav class="border-t-1 border-zinc-500 bg-emerald-950 flex items-center flex-column p-3 flex-wrap md:flex-row justify-between" aria-label="Table navigation">
+    <div class="text-sm text-zinc-50">
+      <%= page_entries_info @tickets, entry_name: 'ticket' %>
+    </div>
+    <ul class="inline-flex px-3 -space-x-px rtl:space-x-reverse">
+      <%= paginate @tickets, :window => 1, :outer_window => 1 %>
+    </ul>
+  </nav>
+</div>

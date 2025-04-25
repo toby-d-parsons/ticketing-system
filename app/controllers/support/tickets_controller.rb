@@ -4,7 +4,7 @@ class Support::TicketsController < SupportController
   before_action :authorize_ticket_access, only: %i[ show edit update ]
 
   def index
-    @tickets = Ticket.where(requester_id: Current.user.id)
+    @tickets = Ticket.where(requester_id: Current.user.id).order(:id).page(params[:page]).per(10)
   end
 
   def show

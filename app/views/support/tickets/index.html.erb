@@ -1,11 +1,9 @@
 <% content_for :title, "Your Tickets" %>
 
-<%= link_to "New Ticket", new_support_ticket_path %>
+<div class="rounded-sm mx-4 mt-4 p-2 w-fit border-indigo-900 border-2 text-sm hover:bg-indigo-900 text-zinc-50 bg-indigo-950 shadow-md sm:rounded-lg">
+  <%= link_to "New Ticket", new_support_ticket_path %>
+</div>
 
-<div id="tickets">
-    <% @tickets.each do |ticket| %>
-        <div>
-            <%= link_to ticket.title, support_ticket_path(ticket) %>
-        </div>
-    <% end %>
+<div class="rounded-sm p-4">
+  <%= render "tickets_table" %>
 </div>

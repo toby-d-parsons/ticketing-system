@@ -1,27 +1,9 @@
 <% content_for :title, "Users" %>
 
-<div>
-    <%= link_to "New", new_admin_user_path %>
+<div class="rounded-sm mx-4 mt-4 p-2 w-fit border-indigo-900 border-2 text-sm hover:bg-indigo-900 text-zinc-50 bg-indigo-950 shadow-md sm:rounded-lg">
+  <%= link_to "New", new_admin_user_path %>
 </div>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Email Address</th>
-        <th>Role</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <% @users.each do |user| %>
-        <tr>
-            <td><%= user.id %></td>
-            <td><%= user.email_address %></td>
-            <td><%= user.role.name %></td>
-            <td><%= link_to "Edit", edit_admin_user_path(user) %>
-            <td><%= button_to "Delete", admin_user_path(user), method: :delete, data: { turbo_confirm: "Are you sure?" } %></td>
-            <% if !user.email_confirmed? %>
-                <td><%= button_to "Resend Activation Email", resend_activation_email_admin_user_path(user), method: :post %></td>
-            <% end %>
-        </tr>
-    <% end %>
-</table>
+<div class="rounded-sm p-4">
+  <%= render "users_table" %>
+</div>
