@@ -31,17 +31,17 @@
       </div>
     <% end %>
 
-    <div class="flex">
-      <aside class="sticky top-0 h-screen z-100"> <%# z-100 ensures tooltip appears over all other elements %>
+    <div class="flex flex-1">
+      <aside class="sticky top-0 z-100"> <%# z-100 ensures tooltip appears over all other elements %>
         <%= render "layouts/sidebar" %>
       </aside>
 
-      <div class="flex-1">
+      <div class="flex-1 flex flex-col">
         <header class="sticky top-0 h-16 z-50">
           <%= render "layouts/navbar" %>
         </header>
 
-        <main class="h-screen bg-zinc-900 p-2">
+        <main class="flex-1 bg-zinc-900 p-2 overflow-y-auto">
           <%= yield %>
         </main>
       </div>

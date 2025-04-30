@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+/* Prevent Chrome autofill from overriding input background color. Hardcodes the text color */
+@layer base {
+  input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-text-fill-color: theme('colors.gray.50');
+    transition: background-color 9999s ease-in-out 0s;
+  }
+
+  :focus {
+    outline: none;
+  }
+}

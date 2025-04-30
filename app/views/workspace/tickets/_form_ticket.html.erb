@@ -1,25 +1,52 @@
 <%= form_with model: @ticket, url: @ticket.persisted? ? workspace_ticket_path(@ticket) : workspace_tickets_path, method: @ticket.persisted? ? :patch : :post do |form| %>
-    <div>
-        <%= form.label :requester %>
-        <%= form.collection_select(:requester_id, @requesters, :id, :email_address, prompt: true) %>
+  <div class="p-2 sm:p-6 md:px-12 space-y-8 relative overflow-x-auto shadow-md sm:rounded-lg border-emerald-900 border-2 max-w-3xl mx-auto w-full text-sm text-left rtl:text-right text-zinc-50 dark:text-gray-400 border-separate border-spacing-x-0 bg-emerald-950">
+    <div class="space-y-4">
+      <div class="text-lg font-bold">Ticket Info</div>
+      <div class="space-y-2">
+        <%= form.label :requester, class: "block text-sm font-semibold dark:text-white" do %>
+          <%= label_text_with_required(form, :requester) %>
+        <% end %>
+        <%= form.collection_select(:requester_id, @requesters, :id, :email_address,
+                                  { prompt: true },
+                                  { class: "bg-emerald-950 border border-gray-300 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" }) %>
+      </div>
+      <div class="space-y-2">
+        <%= form.label :title, class: "block text-sm font-semibold dark:text-white" do %>
+          <%= label_text_with_required(form, :title) %>
+        <% end %>
+        <%= form.text_field :title, maxlength: 255, size: 60, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+      </div>
+      <div class="space-y-2">
+        <%= form.label :description, class: "block text-sm font-semibold dark:text-white" do %>
+          <%= label_text_with_required(form, :description) %>
+        <% end %>
+        <%= form.text_field :description, maxlength: 9810, size: 90, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+      </div>
+      <div class="space-y-2">
+        <%= form.label :status, class: "block text-sm font-semibold dark:text-white" do %>
+          <%= label_text_with_required(form, :status) %>
+        <% end %>
+        <%= form.collection_select(:status_id, @statuses, :id, :name,
+                                  {},
+                                  { class: "bg-emerald-950 border border-gray-300 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" }) %>
+      </div>
+      <div class="space-y-2">
+        <%= form.label :assigned_agent, class: "block text-sm font-semibold dark:text-white" do %>
+          <%= label_text_with_required(form, :assigned_agent) %>
+        <% end %>
+        <%= form.collection_select(:assigned_agent_id, User.where(role_id: Role.find_by(name: "Support Agent").id), :id, :email_address,
+                                  { include_blank: "Unassigned" },
+                                  { class: "bg-emerald-950 border border-gray-300 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" }) %>
+      </div>
     </div>
-    <div>
-        <%= form.label :title %>
-        <%= form.text_field :title, maxlength: 255, size: 60 %>
+    <div class="flex justify-between">
+      <%= form.submit class: "text-white border-indigo-900 border-2 bg-indigo-950 hover:bg-indigo-900 focus:ring-indigo-600 focus:border-indigo-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+      <div class="flex gap-2">
+        <%= link_to "Cancel", :back, class: "text-white border-gray-500 bg-zinc-900 border-2 hover:bg-gray-500 focus:ring-red-600 focus:border-red-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+        <% if @ticket.persisted? and UserPolicy.new.is_admin? %>
+          <%= button_to "Delete", workspace_ticket_path(@ticket.id), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-white border-red-900 border-2 bg-red-950 hover:bg-red-900 focus:ring-red-600 focus:border-red-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+        <% end %>
+      </div>
     </div>
-    <div>
-        <%= form.label :description %>
-        <%= form.text_field :description, maxlength: 9810, size: 90 %>
-    </div>
-    <div>
-        <%= form.label :status %>
-        <%= form.collection_select(:status_id, @statuses, :id, :name) %>
-    </div>
-    <div>
-        <%= form.label :assigned_agent %>
-        <%= form.collection_select(:assigned_agent_id, User.where(role_id: Role.find_by(name: "Support Agent").id), :id, :email_address, include_blank: "Unassigned") %>
-    </div>
-    <div>
-        <%= form.submit %>
-    </div>
+  </div>
 <% end %>
