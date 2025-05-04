@@ -1,4 +1,3 @@
-<% content_for :title, "New Ticket" %>
-
-<%= render "form", ticket: @ticket %>
-<%= link_to "Cancel", support_tickets_path %>
+<div class="p-4">
+  <%= render "form_ticket", ticket: @ticket %>
+</div>

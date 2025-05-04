@@ -1,19 +1,28 @@
 <% content_for :title, "##{@ticket.id}" %>
 
-<div>Title: <%= @ticket.title %></div>
-<div>Description: <%= @ticket.description %></div>
-<div>Status: <%= @ticket.status.name %></div>
-<div>Assigned Agent: <%= @ticket.assigned_agent&.email_address || "Unassigned" %>
-
-<h4>Comments</h4>
-<% @comments.each do |comment| %>
-    <div>
-        <%= comment.user&.email_address || "Unknown" %>: <%= comment.created_at %>: <%= comment.content %>
-    </div>
-<% end %>
-
-<%= render "form_comment", ticket: @ticket %>
-
-<div>
-    <%= link_to "Back", support_tickets_path %>
+<div class="p-4 space-y-4 xl:flex justify-evenly overflow-y-auto max-h-[calc(100vh-8rem)]">
+  <div class="space-y-2">
+    <%= render "form_ticket", ticket: @ticket %>
+  </div>
+  <div class="p-2 sm:p-6 md:px-12 space-y-4 relative overflow-x-auto shadow-md sm:rounded-lg border-emerald-900 border-2 max-w-3xl mx-auto w-full text-sm text-left rtl:text-right text-zinc-50 dark:text-gray-400 border-separate border-spacing-x-0 bg-emerald-950">
+    <div class="text-lg font-bold">Comments</div>
+    <%= render "form_comment", ticket: @ticket %>
+    <br>
+    <%= turbo_frame_tag "comments", class: "overflow-auto" do %>
+      <div class="space-y-6">
+      <% @comments.each do |comment| %>
+        <div class="max-w-3xl">
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <%= comment.user&.email_address || "Unknown" %>: <%= comment.created_at %>
+          </span>
+          <div class="cursor-default select-text shadow-inner bg-[oklch(0.2_0.04_172.5)]/50 flex flex-col leading-1.5 p-4 text-zinc-100 border border-gray-300 rounded-sm dark:bg-gray-700">
+            <p class="text-sm font-normal dark:text-white">
+              <%= comment.content %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
