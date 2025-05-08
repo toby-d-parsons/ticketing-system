@@ -1,11 +1,27 @@
 <%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
 <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
 
-<%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
+<%= form_with url: session_path, class: "p-4" do |form| %>
+  <div class="w-full sm:max-w-md p-2 sm:p-6 md:px-12 space-y-8 relative overflow-x-auto shadow-md sm:rounded-lg border-emerald-900 border-2 max-w-3xl mx-auto text-sm text-left rtl:text-right text-zinc-50 dark:text-gray-400 border-separate border-spacing-x-0 bg-emerald-950">
+    <div class="space-y-6">
+      <div class="text-xl font-bold leading-tight tracking-tight">Sign in to your account</div>
+      <div class="space-y-2">
+        <%= form.label :email_address, class: "block text-sm font-semibold dark:text-white" %>
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "name@company.com", value: params[:email_address],
+                                             class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+      </div>
+      <div class="space-y-2">
+        <%= form.label :password, class: "block text-sm font-semibold dark:text-white" %>
+        <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "••••••••", maxlength: 72,
+                                           class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+      </div>
+      <div>
+        <%= link_to "Forgot password?", new_password_path, class: "text-sm font-medium text-primary-600 hover:underline dark:text-primary-500" %>
+      </div>
+      <%= form.submit "Sign in", class: "w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white border-indigo-900 border-2 bg-indigo-950 hover:bg-indigo-900 focus:ring-indigo-600 focus:border-indigo-600 font-medium rounded-lg w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+      <div class="text-sm font-light text-gray-500 dark:text-gray-400">
+        Don’t have an account yet? <%= link_to "Sign up", signup_path, class: "font-medium text-gray-50 hover:underline " %>
+      </div>
+    </div>
+  </div>
 <% end %>
-<br>
-
-<%= link_to "Forgot password?", new_password_path %>
