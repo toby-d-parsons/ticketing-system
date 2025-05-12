@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "comment-form" do %>
-  <%= form_with model: [@ticket, @comment], url: workspace_ticket_comments_path(@ticket), method: :post, local: true do |form| %>
+  <%= form_with model: [@ticket, @comment], url: support_ticket_comments_path(@ticket), method: :post, local: true do |form| %>
     <div class="space-y-4 max-w-3xl mx-auto w-full">
       <%= form.text_area :content, rows: 4, maxlength: 9810, size: 90, value: "", class: "border border-gray-300 text-sm text-zinc-50 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block p-2.5 w-full text-sm text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Write a comment..." %>
       <%# Ensures the text box is cleared after submission by preventing persistence of previous content %>

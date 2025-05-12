@@ -12,7 +12,7 @@ describe "Ticket", type: :system do
 
       sign_in_as(user)
       go_to_workspace_tickets
-      expect_page_content("Title", "Description", "Status", "New", ticket.title)
+      expect_page_content("TITLE", "DESCRIPTION", "STATUS", ticket.title)
     end
   end
 
@@ -68,6 +68,7 @@ describe "Ticket", type: :system do
       go_to_workspace_tickets_edit(ticket)
       fill_in "Title", with: ""
       click_and_expect(:button, "Update Ticket", "/workspace/tickets/#{ticket.id}/edit")
+      sleep 2
       click_and_expect(:link, "Cancel", "/workspace/tickets")
       expect(ticket.title).to_not eq("")
       expect(page).to have_selector("td", text: ticket.title, wait: 10)

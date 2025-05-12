@@ -6,7 +6,7 @@ RSpec.shared_examples 'invalid password submission' do |password|
     fill_in 'user_email_address', with: 'exampleemail1093@gmail.com'
     fill_in 'user_password', with: password[:value]
     fill_in 'user_password_confirmation', with: password[:confirmation]
-    click_button 'Create User'
+    click_button 'Create an account'
 
     expect(page).to have_current_path('/signup', wait: 10)
   end

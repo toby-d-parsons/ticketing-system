@@ -2,9 +2,12 @@ module UIHelpers
   def click_and_expect(element, text, path)
     case element
     when :link
-      click_link text
+      # Capybara requires link text to be a String or Symbol.
+      click_link text.to_s
     when :button
       click_button text
+    when :testid
+      find("[data-testid=#{text}]").click
     else
       raise ArgumentError, "Invalid element type #{element}."
     end

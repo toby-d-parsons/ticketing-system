@@ -4,11 +4,15 @@ class Support::CommentsController < SupportController
   before_action :authorize_access, only: %i[ create ]
 
   def create
+    @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.build(comment_params)
     @comment.user_id = Current.user.id
 
     if @comment.save
-      redirect_to support_ticket_path(@ticket), notice: "Comment successfully added."
+      respond_to do |format|
+          format.html { redirect_to support_ticket_path(@ticket), notice: "Post was successfully created." }
+          format.turbo_stream
+      end
     else
       @comments = @ticket.comments
       redirect_to support_ticket_path(@ticket), status: :unprocessable_entity

@@ -1,43 +1,45 @@
-<%= form_with model: ticket, url: support_tickets_path, method: :post do |form| %>
-  <div class="p-2 sm:p-6 md:px-12 space-y-8 relative overflow-x-auto shadow-md sm:rounded-lg border-emerald-900 border-2 max-w-3xl mx-auto w-full text-sm text-left rtl:text-right text-zinc-50 dark:text-gray-400 border-separate border-spacing-x-0 bg-emerald-950">
-    <div class="space-y-4">
+<div class="p-2 sm:p-6 md:px-12 space-y-8 relative overflow-x-auto shadow-md sm:rounded-lg border-emerald-900 border-2 max-w-3xl mx-auto w-full text-sm text-left rtl:text-right text-zinc-50 dark:text-gray-400 border-separate border-spacing-x-0 bg-emerald-950">
+  <div class="space-y-4">
+    <div class="flex justify-between items-center">
       <div class="text-lg font-bold">Ticket Info</div>
-      <div class="space-y-2">
-        <%= form.label :title, class: "block text-sm font-semibold dark:text-white" do  %>
-          <%= label_text_with_required(form, :title) %>
-        <% end %>
-        <%= form.text_field :title, maxlength: 255, size: 60, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+      <div class="flex gap-2 mt-4">
+        <%= link_to "Cancel", support_tickets_path, class: "text-white border-gray-500 bg-zinc-900 border-2 hover:bg-gray-500 focus:ring-red-600 focus:border-red-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
       </div>
-      <div class="space-y-2">
-        <%= form.label :description, class: "block text-sm font-semibold dark:text-white" do  %>
-          <%= label_text_with_required(form, :description) %>
-        <% end %>
-        <%= form.text_field :description, maxlength: 9810, size: 90, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
-      </div>
-      <% if @ticket.persisted? %>
+    </div>
+    <%= form_with model: ticket, url: support_tickets_path, method: :post do |form| %>
+      <div class="space-y-4">
         <div class="space-y-2">
-          <div class="block text-sm font-semibold dark:text-white">
-            Status
-          </div>
-          <div class="bg-emerald-950 border border-gray-300 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <%= @ticket.status.name %>
-          </div>
+          <%= form.label :title, class: "block text-sm font-semibold dark:text-white" do  %>
+            <%= label_text_with_required(form, :title) %>
+          <% end %>
+          <%= form.text_field :title, maxlength: 255, size: 60, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
         </div>
         <div class="space-y-2">
-          <div class="block text-sm font-semibold dark:text-white">
-            Assigned Agent
+          <%= form.label :description, class: "block text-sm font-semibold dark:text-white" do  %>
+            <%= label_text_with_required(form, :description) %>
+          <% end %>
+          <%= form.text_field :description, maxlength: 9810, size: 90, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+        </div>
+        <% if @ticket.persisted? %>
+          <div class="space-y-2">
+            <div class="block text-sm font-semibold dark:text-white">
+              Status
+            </div>
+            <div class="bg-emerald-950 border border-gray-300 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <%= @ticket.status.name %>
+            </div>
           </div>
-          <div class="bg-emerald-950 border border-gray-300 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <%= @ticket.assigned_agent&.email_address || "Unassigned" %>
-          </div>
-        </div> 
-      <% end %>
-    </div>
-    <div class="flex justify-between">
-      <%= form.submit class: "text-white border-indigo-900 border-2 bg-indigo-950 hover:bg-indigo-900 focus:ring-indigo-600 focus:border-indigo-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
-      <div class="flex gap-2">
-        <%= link_to "Cancel", :back, class: "text-white border-gray-500 bg-zinc-900 border-2 hover:bg-gray-500 focus:ring-red-600 focus:border-red-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+          <div class="space-y-2">
+            <div class="block text-sm font-semibold dark:text-white">
+              Assigned Agent
+            </div>
+            <div class="bg-emerald-950 border border-gray-300 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <%= @ticket.assigned_agent&.email_address || "Unassigned" %>
+            </div>
+          </div> 
+        <% end %>  
+        <%= form.submit class: "text-white border-indigo-900 border-2 bg-indigo-950 hover:bg-indigo-900 focus:ring-indigo-600 focus:border-indigo-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
       </div>
-    </div>
+    <% end %>
   </div>
-<% end %>
+</div>

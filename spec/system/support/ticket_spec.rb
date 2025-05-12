@@ -12,8 +12,8 @@ describe "Ticket", type: :system do
     it "shows tickets created by the user but not those of other users" do
       sign_in_as(user)
       go_to_support_tickets_index
-      expect(page).to have_selector("a", text: user_ticket.title, wait: 10)
-      expect(page).to_not have_selector("a", text: other_user_ticket.title, wait: 10)
+      expect(page).to have_selector("td", text: user_ticket.title, wait: 10)
+      expect(page).to_not have_selector("td", text: other_user_ticket.title, wait: 10)
     end
   end
 
@@ -30,8 +30,8 @@ describe "Ticket", type: :system do
       )
 
       click_and_expect(:button, "Create Ticket", "/support/tickets")
-      expect(page).to have_selector("a", text: title, wait: 10)
-      expect(page).to_not have_selector("a", text: other_user_ticket.title, wait: 10)
+      expect(page).to have_selector("td", text: title, wait: 10)
+      expect(page).to_not have_selector("td", text: other_user_ticket.title, wait: 10)
     end
 
     it "does not allow submission without a title, and retains the description" do
@@ -63,28 +63,26 @@ describe "Ticket", type: :system do
 
   context "Unauthenticated access" do
     it "redirects unauthenticated users away from the tickets page" do
-      visit root_path
-      click_and_expect(:link, "Portal Home", "/support/home")
-      click_and_expect(:link, "Tickets", "/session/new")
+      visit support_tickets_path
+      expect(page).to have_current_path(new_session_path, wait: 10)
     end
   end
 
   context "Adding a comment" do
-    let!(:user) { create(:user) }
     let!(:ticket) { create(:ticket, requester_id: user.id) }
 
     before do
       sign_in_as(user)
       go_to_support_tickets_index
-      click_and_expect(:link, ticket.title, "/support/tickets/#{ticket.id}")
+      click_and_expect(:link, ticket.id, "/support/tickets/#{ticket.id}")
     end
 
     it "successfully adds a comment and displays it within the ticket" do
       fill_in 'comment_content', with: 'I am a comment'
       click_button 'Add Comment'
+      expect(page).to have_content("I am a comment", wait: 5)
+      expect(find('#comment_content').value).to eq("")
       expect(page).to have_current_path("/support/tickets/#{ticket.id}", wait: 10)
-      expect(page).to have_content('I am a comment')
-      expect(page).to have_content('Comment successfully added.')
     end
 
     it "does not create a comment if content is missing" do

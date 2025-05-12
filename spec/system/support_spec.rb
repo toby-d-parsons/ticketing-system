@@ -5,7 +5,7 @@ describe "Support", type: :system do
     it "displays the support home page successfully" do
       visit support_home_path
 
-      expect(page).to have_selector("h1", text: "Home", wait: 10)
+      expect(page).to have_selector("span", text: "Home", wait: 10)
     end
 
     # Future improvements:

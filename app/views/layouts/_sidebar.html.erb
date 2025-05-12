@@ -6,7 +6,7 @@
   <div class="h-full pt-[72px] px-2 bg-zinc-950 dark:bg-gray-800">
     <ul class="space-y-2 font-medium">
       <li class="relative group">
-        <%= link_to support_home_path, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
+        <%= link_to support_home_path, data: { testid: "support-link" }, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
                                                 hover:bg-emerald-800 dark:hover:bg-gray-700 group" do %>
           <svg class="fill-emerald-50 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 
                   group-hover:text-gray-900 dark:group-hover:text-white"
@@ -29,7 +29,7 @@
       </li>
       <li class="relative group">
         <% if authenticated? && ::UserPolicy.new.global_ticket_scope? %>
-          <%= link_to workspace_dashboard_path, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
+          <%= link_to workspace_dashboard_path, data: { testid: "dashboard-link" }, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
                                                         hover:bg-emerald-800 dark:hover:bg-gray-700 group" do %>
             <svg class="fill-emerald-50 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400
                         group-hover:text-gray-900 dark:group-hover:text-white"
@@ -54,7 +54,7 @@
       </li>
       <li class="relative group">
         <% if authenticated? && ::UserPolicy.new.global_ticket_scope? %>
-          <%= link_to workspace_tickets_path, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
+          <%= link_to workspace_tickets_path, data: { testid: "workspace-link" }, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
                                                       hover:bg-emerald-800 dark:hover:bg-gray-700 group" do %>
             <svg class="fill-emerald-50 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400
                         group-hover:text-gray-900 dark:group-hover:text-white"
@@ -79,7 +79,7 @@
       </li>
       <li class="relative group">
         <% if authenticated? && ::UserPolicy.new.can_access_admin_portal? %>
-          <%= link_to admin_path, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
+          <%= link_to admin_path, data: { testid: "admin-link" }, class: "flex items-center p-2 text-emerald-50 rounded-lg dark:text-white
                                           hover:bg-emerald-800 dark:hover:bg-gray-700 group" do %>
             <svg class="fill-emerald-50 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400
                         group-hover:text-gray-900 dark:group-hover:text-white"

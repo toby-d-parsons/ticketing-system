@@ -10,7 +10,7 @@ describe 'Authentication', type: :system do
       fill_in 'user_email_address', with: 'exampleemail1093@gmail.com'
       fill_in 'user_password', with: 'Password1!'
       fill_in 'user_password_confirmation', with: 'Password1!'
-      click_and_expect(:button, 'Create User', '/')
+      click_and_expect(:button, 'Create an account', '/')
       expect(page).to have_content('Please confirm your email address to continue.')
     end
   end
@@ -23,7 +23,7 @@ describe 'Authentication', type: :system do
         fill_in 'user_email_address', with: 'invalid-email'
         fill_in 'user_password', with: 'Password1!'
         fill_in 'user_password_confirmation', with: 'Password1!'
-        click_and_expect(:button, 'Create User', '/signup')
+        click_and_expect(:button, 'Create an account', '/signup')
       end
 
       it 'does not allow submission when the email address is already taken' do
@@ -33,7 +33,7 @@ describe 'Authentication', type: :system do
         fill_in 'user_email_address', with: 'takenemail@test.com'
         fill_in 'user_password', with: 'Password1!'
         fill_in 'user_password_confirmation', with: 'Password1!'
-        click_and_expect(:button, 'Create User', '/signup')
+        click_and_expect(:button, 'Create an account', '/signup')
       end
     end
 
@@ -67,7 +67,7 @@ describe 'Authentication', type: :system do
       go_to_passwords_new
 
       fill_in 'email_address', with: user.email_address
-      click_button 'Email reset instructions'
+      click_button 'Reset password'
 
       reset_token = user.password_reset_token
 
@@ -104,7 +104,8 @@ describe 'Authentication', type: :system do
       user = create(:user)
       sign_in_as(user)
       expect(page).to have_current_path('/', wait: 10)
-      click_and_expect(:button, 'Log out', '/session/new')
+      find("[data-testid='profile-menu']").click
+      click_and_expect(:button, 'Sign out', '/session/new')
     end
   end
 end
