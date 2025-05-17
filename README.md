@@ -15,17 +15,19 @@ A web-based application designed to manage and track tickets for various issues 
 
 This project was developed using the following technologies:
 
-* [Ruby on Rails](https://rubyonrails.org/) - Backend framework
-* [SQLite3](https://www.sqlite.org/index.html) - Database
+- [Ruby on Rails](https://rubyonrails.org/) - Backend web framework
+- [SQLite3](https://www.sqlite.org/index.html) - Lightweight relational database
+- [Hotwire](https://hotwired.dev/) - Frontend framework for Rails using Turbo and Stimulus to minimize custom JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 
 ## Testing Stack
 
 This project is tested with:
 
-* [RSpec](https://rspec.info/) - Unit and integration testing
-* [Capybara](https://teamcapybara.github.io/capybara/) - System tests for UI interactions
-* [FactoryBot](https://github.com/thoughtbot/factory_bot) - Test data setup
-* [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) - Simplifies model and controller tests
+- [RSpec](https://rspec.info/) - Unit and integration testing
+- [Capybara](https://teamcapybara.github.io/capybara/) - System tests for UI interactions
+- [FactoryBot](https://github.com/thoughtbot/factory_bot) - Test data setup
+- [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) - Simplifies model and controller tests
 
 ## Requirements
 
@@ -37,34 +39,34 @@ This project is tested with:
 Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
-    ``` bash
-    git clone https://github.com/toby-d-parsons/ticketing-system.git
-    cd ticketing-system
-    ```
+   ```bash
+   git clone https://github.com/toby-d-parsons/ticketing-system.git
+   cd ticketing-system
+   ```
 2. **Install required dependencies:**
-    ``` bash
-    bundle install
-    ```
+   ```bash
+   bundle install
+   ```
 3. **Set up the database:**
-    ``` bash
-    rails db:setup && rails db:migrate
-    ```
+   ```bash
+   rails db:setup && rails db:migrate
+   ```
 
 ## Usage
 
 1. **Start the Rails server:**
-    ``` bash
-    rails server
-    ```
+   ```bash
+   rails server
+   ```
 2. **Access the application:**
 
-    Open your browser and go to http://localhost:3000
+   Open your browser and go to http://localhost:3000
 
 ## Running Tests
 
 To run the test suite and ensure the application works correctly, use:
 
-``` bash
+```bash
 bundle exec rspec
 ```
 
