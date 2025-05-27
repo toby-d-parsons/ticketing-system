@@ -6,7 +6,8 @@ describe "Support Ticket Comments API", type: :request do
   context "as a user" do
     include_context "logged in as user"
 
-    let!(:user_ticket) { create(:ticket, requester: user, title: "This is a test") }
+    let!(:support_agent) { create(:user, role_id: Role.find_by(name: "Support Agent").id) }
+    let!(:user_ticket) { create(:ticket, requester: user, assigned_agent_id: support_agent.id, title: "This is a test") }
     let!(:user_ticket2) { create(:ticket, requester: user, title: "A completely random string") }
     let!(:other_user_ticket) { create(:ticket) }
 
@@ -28,6 +29,18 @@ describe "Support Ticket Comments API", type: :request do
         expect(new_comment.content).to eq(valid_attributes[:comment][:content])
 
         expect(response).to have_http_status(:found)
+      end
+
+      it "sends an email to the assigned agent" do
+        expect {
+          post "/support/tickets/#{user_ticket.id}/comments", params: valid_attributes
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+
+      it "does not send an email if there is no assigned agent" do
+        expect {
+          post "/support/tickets/#{user_ticket2.id}/comments", params: valid_attributes
+        }.to change { ActionMailer::Base.deliveries.count }.by(0)
       end
 
       it "prevents a non-creator from adding a comment" do

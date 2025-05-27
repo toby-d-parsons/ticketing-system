@@ -1,0 +1,7 @@
+<p>Hi <%= @requester.email_address %>,</p>
+
+<p>A new note was added to your ticket (#<%= @ticket.id %>).</p>
+
+<p>You can view the update at the link below:</p>
+
+<p><%= link_to "View Ticket", support_ticket_url(@ticket) %></p>

@@ -1,0 +1,7 @@
+<p>Hi <%= @agent.email_address %>,</p>
+
+<p>A new note was added to an assigned ticket (#<%= @ticket.id %>).</p>
+
+<p>You can view the update at the link below:</p>
+
+<p><%= link_to "View Ticket", edit_workspace_ticket_url(@ticket) %></p>

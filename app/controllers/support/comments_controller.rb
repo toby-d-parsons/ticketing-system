@@ -13,6 +13,7 @@ class Support::CommentsController < SupportController
           format.html { redirect_to support_ticket_path(@ticket), notice: "Post was successfully created." }
           format.turbo_stream
       end
+      TicketMailer.requester_replied(@ticket).deliver
     else
       @comments = @ticket.comments
       redirect_to support_ticket_path(@ticket), status: :unprocessable_entity

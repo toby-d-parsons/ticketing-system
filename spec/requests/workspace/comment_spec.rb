@@ -25,6 +25,12 @@ describe "Workspace Ticket Comments API", type: :request do
 
         expect(response).to have_http_status(:found)
       end
+
+      it "sends an email to the requester" do
+        expect {
+          post "/workspace/tickets/#{ticket.id}/comments", params: valid_attributes
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
     end
   end
 
