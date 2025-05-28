@@ -11,6 +11,8 @@ describe 'User', type: :system do
       go_to_admin_users_new
       fill_in_user_form(
         email_address: 'testaccount@testing.com',
+        first_name: 'Test',
+        last_name: 'Tester',
         role: 'User',
         password: 'Password1!'
       )

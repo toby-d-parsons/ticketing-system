@@ -16,8 +16,10 @@ module FormHelpers
     fill_in "comment_content", with: content
   end
 
-  def fill_in_user_form(email_address:, role:, password:)
+  def fill_in_user_form(email_address:, first_name:, last_name:, role:, password:)
     fill_in 'user_email_address', with: email_address
+    fill_in 'user_first_name', with: first_name
+    fill_in 'user_last_name', with: last_name
     select role, from: 'user_role_id'
     fill_in 'user_password', with: password
     fill_in 'user_password_confirmation', with: password

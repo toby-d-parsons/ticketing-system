@@ -39,10 +39,8 @@ class Admin::UsersController < AdminController
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to admin_users_path
-      puts "yes bueno"
     else
       render :edit, status: :unprocessable_entity
-      puts "no bueno"
     end
   end
 
@@ -62,6 +60,6 @@ class Admin::UsersController < AdminController
   end
 
   def user_params
-    params.expect(user: [ :email_address, :role_id, :password, :password_confirmation ])
+    params.expect(user: [ :email_address, :first_name, :last_name, :role_id, :password, :password_confirmation ])
   end
 end

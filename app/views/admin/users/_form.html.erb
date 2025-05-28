@@ -17,6 +17,18 @@
           <%= form.text_field :email_address, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
         </div>
         <div class="space-y-2">
+          <%= form.label :first_name, class: "block text-sm font-semibold dark:text-white" do  %>
+            <%= label_text_with_required(form, :first_name) %>
+          <% end %>
+          <%= form.text_field :first_name, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+        </div>
+        <div class="space-y-2">
+          <%= form.label :last_name, class: "block text-sm font-semibold dark:text-white" do  %>
+            <%= label_text_with_required(form, :last_name) %>
+          <% end %>
+          <%= form.text_field :last_name, class: "border border-gray-300 text-zinc-50 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+        </div>
+        <div class="space-y-2">
           <%= form.label :role_id, class: "block text-sm font-semibold dark:text-white" do  %>
             <%= label_text_with_required(form, :role_id) %>
           <% end %>

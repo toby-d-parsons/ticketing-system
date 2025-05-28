@@ -8,6 +8,8 @@ describe 'Authentication', type: :system do
       visit signup_path
       expect(page).to have_current_path('/signup', wait: 10)
       fill_in 'user_email_address', with: 'exampleemail1093@gmail.com'
+      fill_in 'user_first_name', with: 'Test'
+      fill_in 'user_last_name', with: 'Tester'
       fill_in 'user_password', with: 'Password1!'
       fill_in 'user_password_confirmation', with: 'Password1!'
       click_and_expect(:button, 'Create an account', '/')
@@ -21,6 +23,8 @@ describe 'Authentication', type: :system do
         visit signup_path
         expect(page).to have_current_path('/signup', wait: 10)
         fill_in 'user_email_address', with: 'invalid-email'
+        fill_in 'user_first_name', with: 'Test'
+        fill_in 'user_last_name', with: 'Tester'
         fill_in 'user_password', with: 'Password1!'
         fill_in 'user_password_confirmation', with: 'Password1!'
         click_and_expect(:button, 'Create an account', '/signup')
@@ -31,6 +35,8 @@ describe 'Authentication', type: :system do
         visit signup_path
         expect(page).to have_current_path('/signup', wait: 10)
         fill_in 'user_email_address', with: 'takenemail@test.com'
+        fill_in 'user_first_name', with: 'Test'
+        fill_in 'user_last_name', with: 'Tester'
         fill_in 'user_password', with: 'Password1!'
         fill_in 'user_password_confirmation', with: 'Password1!'
         click_and_expect(:button, 'Create an account', '/signup')

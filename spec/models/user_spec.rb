@@ -6,12 +6,12 @@ describe User, type: :model do
   context "Associations" do
     it { should belong_to(:role) }
     it { should have_many(:tickets) }
-    # it { should have_many(:comments) }
+    it { should have_many(:comments) }
   end
 
   context "validations on creation" do
     context "valid attributes" do
-      it "is valid with an email_address, password, and valid role_id" do
+      it "is valid with an email_address, first name, last name, password, and valid role_id" do
         expect(subject).to be_valid
       end
     end
@@ -41,6 +41,20 @@ describe User, type: :model do
         it "is invalid when a duplicate email_address is entered" do
           create(:user, email_address: "duplicate@test.com")
           subject.email_address = "duplicate@test.com"
+          expect(subject).to be_invalid
+        end
+      end
+
+      context "first name" do
+        it "is invalid without a first name" do
+          subject.first_name = nil
+          expect(subject).to be_invalid
+        end
+      end
+
+      context "last name" do
+        it "is invalid without a last name" do
+          subject.last_name = nil
           expect(subject).to be_invalid
         end
       end

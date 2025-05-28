@@ -11,6 +11,9 @@ class User < ApplicationRecord
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   PASSWORD_REQUIREMENTS = /\A
     (?=.{8,}) # At least 8 characters long
     (?=.*[a-z]) # Contains at least 1 lowercase letter

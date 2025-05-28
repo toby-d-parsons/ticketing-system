@@ -36,6 +36,6 @@ class SignupController < ApplicationController
   end
 
   def user_params
-    params.expect(user: [ :email_address, :password, :password_digest ])
+    params.expect(user: [ :email_address, :first_name, :last_name, :password, :password_digest ])
   end
 end
